@@ -2,7 +2,7 @@
 
 A C++ CPU scheduling simulator with a web interface. The C++ engine runs six algorithms and produces Gantt charts and metrics; a small Python server connects it to a browser UI.
 
-![Web UI](screenshot.jpeg)
+![Web UI](./Screenshot.jpeg)
 
 ## Features
 
