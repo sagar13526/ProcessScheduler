@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process Scheduler Simulator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Process Scheduler Simulator</h1>
+  <p>Edit the processes, pick an algorithm, and see how the CPU spends its time. Results come from the C++ engine.</p>
+</header>
+
+<main class="layout">
+  <aside class="controls" aria-label="Simulation settings">
+    <section class="panel">
+      <h2>Processes</h2>
+      <table class="proc-table">
+        <thead><tr><th scope="col">Process</th><th scope="col">Arrival</th><th scope="col">Burst</th><th scope="col" id="prio-head">Priority</th><th></th></tr></thead>
+        <tbody id="proc-body"></tbody>
+      </table>
+      <div class="row-actions">
+        <button type="button" id="add-btn">Add process</button>
+        <button type="button" id="sample-btn" class="quiet">Load sample</button>
+        <button type="button" id="random-btn" class="quiet">Randomize</button>
+      </div>
+      <p class="hint">Lower priority number runs first. Burst must be at least 1.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Algorithm</h2>
+      <div id="algo-list" class="algo-list" role="radiogroup" aria-label="Scheduling algorithm"></div>
+      <p id="algo-note" class="hint"></p>
+      <label id="quantum-row" class="quantum" hidden>Time quantum
+        <input type="number" id="quantum" min="1" max="100" value="2">
+      </label>
+    </section>
+  </aside>
+
+  <section class="results" aria-live="polite">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-schedule" aria-selected="true">Schedule</button>
+      <button role="tab" id="tab-compare" aria-selected="false">Compare all</button>
+    </div>
+    <p id="message" class="message" hidden></p>
+    <div id="view-schedule">
+      <section class="panel">
+        <h2 id="gantt-title">Gantt chart</h2>
+        <div id="gantt" class="gantt-wrap"></div>
+        <p class="hint">Hatched blocks are idle time. Hover a block for its time range.</p>
+      </section>
+      <section class="panel">
+        <h2>Summary</h2>
+        <dl id="summary" class="summary"></dl>
+      </section>
+      <section class="panel">
+        <h2>Per-process metrics</h2>
+        <div class="table-scroll"><table id="metrics" class="metrics"></table></div>
+      </section>
+    </div>
+    <div id="view-compare" hidden>
+      <section class="panel">
+        <h2>Average waiting and turnaround time</h2>
+        <div id="compare"></div>
+        <p class="hint">Shorter bars are better. Round Robin uses the quantum set on the left.</p>
+      </section>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
