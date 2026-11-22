@@ -2,6 +2,8 @@
 
 A C++ CPU scheduling simulator with a web interface. The C++ engine runs six algorithms and produces Gantt charts and metrics; a small Python server connects it to a browser UI.
 
+![Web UI](screenshot.jpeg)
+
 ## Features
 
 - **Algorithms:** FCFS, SJF, SRTF, Priority (non-preemptive and preemptive), Round Robin
@@ -12,7 +14,9 @@ A C++ CPU scheduling simulator with a web interface. The C++ engine runs six alg
 
 ## Quick start
 
-Requires a C++11 compiler, `make`, and Python 3 (standard library only).
+Requires a C++11 compiler, Python 3 (standard library only), and optionally `make`.
+
+**Linux / macOS / WSL**
 
 ```bash
 make            # build bin/scheduler
@@ -21,7 +25,22 @@ make web        # start the web UI at http://localhost:8000
 make run        # or use the console menu
 ```
 
-On Windows, use MSYS2/MinGW or WSL; the Makefile and server assume a Unix-like shell for `mkdir -p` and `rm`.
+**Windows (MinGW, Command Prompt)**
+
+```bat
+mkdir bin
+g++ -std=gnu++11 -I./include src/Process.cpp src/Scheduler.cpp src/Utils.cpp src/main.cpp -o bin/scheduler.exe
+python server.py
+```
+
+Then open http://localhost:8000.
+
+To run the tests on Windows:
+
+```bat
+g++ -std=gnu++11 -I./include src/Process.cpp src/Scheduler.cpp src/Utils.cpp tests/test_scheduler.cpp -o bin/run_tests.exe
+bin\run_tests.exe
+```
 
 ## Project structure
 
@@ -78,7 +97,3 @@ Ties are broken by earlier arrival, then lower PID. SRTF and preemptive priority
 3. Add it to `ALGOS` in `web/app.js` and add a test case.
 
 Ideas: Multilevel Feedback Queue, aging for priority scheduling, CSV import, random workload benchmarks.
-
-## License
-
-MIT
